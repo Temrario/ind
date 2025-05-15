@@ -42,3 +42,21 @@ jobs:
 
       - name: Push Docker image
         run: docker push ghcr.io/${{ github.repository }}:latest
+
+      - name: Notify Slack on success
+        if: success()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: '#2eb886'
+          SLACK_MESSAGE: '✅ CI pipeline пройшов успішно для ${{ github.repository }}!'
+          SLACK_TITLE: 'CI успішно завершено'
+
+      - name: Notify Slack on failure
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: '#ff0000'
+          SLACK_MESSAGE: '❌ CI pipeline провалився в ${{ github.repository }}!'
+          SLACK_TITLE: 'CI помилка'
