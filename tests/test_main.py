@@ -1,10 +1,9 @@
-import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 
+client = TestClient(app)
 
 def test_hello():
-    client = app.test_client()
     response = client.get("/hello")
     assert response.status_code == 200
-    assert response.data == b"Hello, Docker!"
+    assert response.text == "Hello, Docker!"
