@@ -36,7 +36,11 @@ jobs:
       - name: Build Docker image
         run: |
           IMAGE_NAME=ghcr.io/$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]'):latest
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
           docker build -t $IMAGE_NAME .
+
+      - name: Push Docker image
+        run: docker push ${{ env.IMAGE_NAME }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
