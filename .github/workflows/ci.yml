@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
           pip install flake8
 
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
       - name: Run linting (flake8)
         run: flake8
 
@@ -60,11 +63,3 @@ jobs:
           SLACK_COLOR: '#ff0000'
           SLACK_MESSAGE: '❌ CI pipeline провалився в ${{ github.repository }}!'
           SLACK_TITLE: 'CI помилка'
-
-      - name: Run tests
-        run: |
-          PYTHONPATH=.
-          pytest
-      
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
