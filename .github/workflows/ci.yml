@@ -60,3 +60,4 @@ jobs:
           SLACK_COLOR: '#ff0000'
           SLACK_MESSAGE: '❌ CI pipeline провалився в ${{ github.repository }}!'
           SLACK_TITLE: 'CI помилка'
+          
